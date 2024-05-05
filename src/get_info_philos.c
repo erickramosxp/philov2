@@ -69,6 +69,7 @@ void	init_infos(t_data *data, char **args, int argc)
 	data->time_sleep = ft_atoi(args[4]) * 1000;
 	data->time_start = get_real_time();
 	data->philos_dead = data->nb_philo;
+	data->end_dinner = 0;
 	if (argc == 6)
 	{
 		data->times_must_eat = ft_atoi(args[5]);

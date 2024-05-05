@@ -4,13 +4,7 @@
 int	philo_alive(t_philos *philo)
 {
 	pthread_mutex_lock(&philo->set_status);
-	if ((get_real_time() - philo->last_time_eat) > philo->data->time_die)
-	{
-		philo->status = 0;
-		print_status("died\n", (get_real_time() - philo->data->time_start)
-			/ 1000, philo->index, &(philo->data->print_mutex));
-	}
-	if (philo->status == 0)
+	if (philo->data->end_dinner == 1 || philo->status == 0)
 	{
 		pthread_mutex_unlock(&philo->set_status);
 		return (0);
@@ -90,7 +84,7 @@ void	*filosofo(void *arg)
 
 	philo = (t_philos *)arg;
 	if (philo->index % 2 == 0)
-		usleep(3000);
+		usleep(1500);
 	while (1)
 	{
 		if (!philo_think(philo))

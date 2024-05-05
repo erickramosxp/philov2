@@ -43,6 +43,8 @@ int	main(int argc, char **argv)
 	if (!valid_args(argc - 1, argv + 1))
 		return (1);
 	init_infos(&data, argv, argc);
+//	pthread_create(&data.monitor, NULL, &monitor, data.philo);
+//	pthread_join(data.monitor, NULL);
 	start_routine(&data);
 	return (0);
 }

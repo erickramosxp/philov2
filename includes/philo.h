@@ -48,6 +48,7 @@ typedef struct s_data
 	int					times_must_eat;
 	int					flag_can_eat;
 	int					philos_dead;
+	int					end_dinner;
 	long int			time_start;
 	mutex_p				table_mutex;
 	mutex_p				print_mutex;
@@ -68,6 +69,7 @@ int						valid_args(int argc, char **args);
 void					free_list(t_philos *philo);
 
 void					new_sleep(long time);
+void					*monitor(void *arg);
 
 void					print_status(char *msg, long time_current,
 							int index_philo, mutex_p *print_mutex);
