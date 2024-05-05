@@ -7,8 +7,6 @@ int	philo_dead(t_philos *philo)
 	{
 		philo->status = 0;
 		philo->data->end_dinner = 1;
-		print_status("died\n", (get_real_time() - philo->data->time_start)
-				/ 1000, philo->index, &(philo->data->print_mutex));
 		pthread_mutex_unlock(&philo->set_status);
 		return (1);
 	}

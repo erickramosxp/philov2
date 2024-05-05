@@ -34,6 +34,7 @@ void	start_routine(t_data *data)
 		philo = philo->next;
 		i++;
 	}
+	pthread_join(data->monitor, NULL);
 }
 
 int	main(int argc, char **argv)
@@ -43,8 +44,7 @@ int	main(int argc, char **argv)
 	if (!valid_args(argc - 1, argv + 1))
 		return (1);
 	init_infos(&data, argv, argc);
-//	pthread_create(&data.monitor, NULL, &monitor, data.philo);
-//	pthread_join(data.monitor, NULL);
+	pthread_create(&data.monitor, NULL, &monitor, data.philo);
 	start_routine(&data);
 	return (0);
 }
