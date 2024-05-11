@@ -30,6 +30,9 @@ typedef struct s_philo
 	pthread_t			philo;
 	mutex_p				fork;
 	mutex_p				set_status;
+	mutex_p				meal_check;
+	mutex_p				dead_check;
+	mutex_p				set_fork;
 	long int			last_time_eat;
 	int					i_eat;
 	int					get_fork_right;

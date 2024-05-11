@@ -4,9 +4,9 @@ FLAGS = -Wall -Wextra -Werror
 SANITIZE = -fsanitize=thread
 
 NAME: all
-
+# $(SANITIZE)
 all:
-	cc -g $(FLAGS) $(addprefix src/, $(SRCS)) main.c -o philo -pthread $(SANITIZE)
+	cc -g $(FLAGS) $(addprefix src/, $(SRCS)) main.c -o philo -pthread 
 clean:
 		rm philo
 

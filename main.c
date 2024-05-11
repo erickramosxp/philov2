@@ -46,5 +46,6 @@ int	main(int argc, char **argv)
 	init_infos(&data, argv, argc);
 	pthread_create(&data.monitor, NULL, &monitor, data.philo);
 	start_routine(&data);
+	free_list(data.philo);
 	return (0);
 }
