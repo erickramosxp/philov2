@@ -71,9 +71,16 @@ void	unlock_forks(t_philos *philo)
 int	philo_eat(t_philos *philo)
 {
 	if (!taken_left_fork(philo))
+	{
+		pthread_mutex_unlock(&philo->previous->fork);
 		return (0);
+	}
 	if (!taken_right_fork(philo))
+	{
+		pthread_mutex_unlock(&philo->previous->fork);
+		pthread_mutex_unlock(&philo->fork);
 		return (0);
+	}
 	print_status("is eating\n", (get_real_time() - philo->data->time_start)
 		/ 1000, philo->index, &(philo->data->print_mutex));
 	new_sleep(philo->data->time_eat);

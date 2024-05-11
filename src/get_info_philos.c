@@ -38,6 +38,8 @@ void	index_philos(t_philos *philo, int qtd_philos)
 		philo->index = i;
 		philo->status = 1;
 		philo->i_eat = 0;
+		philo->get_fork_left = 0;
+		philo->get_fork_right = 0;
 		philo->last_time_eat = get_real_time();
 		pthread_mutex_init(&philo->fork, NULL);
 		pthread_mutex_init(&philo->set_status, NULL);

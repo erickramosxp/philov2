@@ -10,14 +10,14 @@ void	disable_all_philos(t_philos *philos)
 	while (i <= temp->data->nb_philo)
 	{
 		set_status(&temp->status, 0, &temp->dead_check);
-		pthread_mutex_lock(&philos->set_fork);
-		if (temp->get_fork_left)
-		{
-			pthread_mutex_unlock(&temp->previous->fork);
-		}
-		if (temp->get_fork_right)
-			pthread_mutex_unlock(&temp->fork);
-		pthread_mutex_unlock(&philos->set_fork);
+		// pthread_mutex_lock(&philos->set_fork);
+		// if (temp->get_fork_left == 1)
+		// {
+		// 	pthread_mutex_unlock(&temp->previous->fork);
+		// }
+		// if (temp->get_fork_right == 1)
+		// 	pthread_mutex_unlock(&temp->fork);
+		// pthread_mutex_unlock(&philos->set_fork);
 		temp = temp->next;
 		i++;
 	}
@@ -30,7 +30,7 @@ int	philo_dead(t_philos *philo)
 	{
 		philo->status = 0;
 		pthread_mutex_unlock(&philo->dead_check);
-	//	disable_all_philos(philo);
+		disable_all_philos(philo);
 		set_status(&philo->data->end_dinner, 1, &philo->data->table_mutex);
 		print_status("died\n", (get_real_time() - philo->data->time_start)
 			/ 1000, philo->index, &(philo->data->print_mutex));
