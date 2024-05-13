@@ -87,7 +87,9 @@ int	philo_eat(t_philos *philo)
 	pthread_mutex_lock(&philo->dead_check);
 	philo->last_time_eat = get_real_time();
 	pthread_mutex_unlock(&philo->dead_check);
+	pthread_mutex_lock(&philo->meal_check);
 	philo->i_eat++;
+	pthread_mutex_unlock(&philo->meal_check);
 	unlock_forks(philo);
 	return (1);
 }
@@ -136,11 +138,11 @@ void	*filosofo(void *arg)
 		usleep(1500);
 	while (1)
 	{
-		if (!philo_think(philo))
-			break ;
 		if (!philo_eat(philo))
 			break ;
 		if (!philo_sleep(philo))
+			break ;
+		if (!philo_think(philo))
 			break ;
 	}
 	return (NULL);
