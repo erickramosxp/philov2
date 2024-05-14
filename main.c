@@ -25,8 +25,10 @@ void	start_routine(t_data *data)
 	{
 		pthread_create(&philo->philo, NULL, &filosofo, philo);
 		philo = philo->next;
+		usleep(250);
 		i++;
 	}
+	// set_start(&data->table_mutex, &data->start_simulation, 1);
 	i = 0;
 	while (i < nb_philos)
 	{

@@ -78,17 +78,17 @@ void	free_list(t_philos *philo)
 	{
 		usleep(500);
 		aux = temp->next;
-		printf("free no %d\n", temp->index);
-		if (pthread_mutex_destroy(&temp->fork))
-			printf("Eu filosofo %d não fui destruido.\n", aux->index);
+		pthread_mutex_destroy(&temp->fork);
+		pthread_mutex_destroy(&temp->meal_check);
+		pthread_mutex_destroy(&temp->dead_check);
 		free(temp);
 		temp = aux;
 	}
-	printf("free no %d\n", philo->index);
+//	printf("free no %d\n", philo->index);
 	free(philo);
 }
 
-void	new_sleep(long time)
+int		new_sleep(long time)
 {
 	long new_time;
 
@@ -97,6 +97,7 @@ void	new_sleep(long time)
 	{
 		usleep(100);
 	}
+	return (1);
 }
 
 void	print_status(char *msg, long time_current, int index_philo, mutex_p *print_mutex)
@@ -111,4 +112,27 @@ void	set_status(int *status, int new_status, mutex_p *status_mutex)
 	pthread_mutex_lock(status_mutex);
 	*status = new_status;
 	pthread_mutex_unlock(status_mutex);
+}
+
+int	get_status_simulation(mutex_p *mutex, int *start)
+{
+	int result;
+
+	pthread_mutex_lock(mutex);
+	result = *start;
+	pthread_mutex_unlock(mutex);
+	return (result);
+}
+
+void	set_start(mutex_p *mutex, int *status, int new_status)
+{
+	pthread_mutex_lock(mutex);
+	*status = new_status;
+	pthread_mutex_unlock(mutex);
+}
+
+void	wait_start_simulation(t_data *data)
+{
+	while (get_status_simulation(&data->table_mutex, &data->start_simulation) == 0)
+		;
 }

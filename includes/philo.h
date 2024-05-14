@@ -29,14 +29,14 @@ typedef struct s_philo
 	int					status;
 	pthread_t			philo;
 	mutex_p				fork;
-	mutex_p				set_status;
+//	mutex_p				set_status;
 	mutex_p				meal_check;
 	mutex_p				dead_check;
-	mutex_p				set_fork;
+//	mutex_p				set_fork;
 	long int			last_time_eat;
 	int					i_eat;
-	int					get_fork_right;
-	int					get_fork_left;
+//	int					get_fork_right;
+//	int					get_fork_left;
 	struct s_philo		*previous;
 	struct s_philo		*next;
 	t_data				*data;
@@ -52,10 +52,11 @@ typedef struct s_data
 	int					flag_can_eat;
 	int					philos_dead;
 	int					end_dinner;
+	int					start_simulation;
 	long int			time_start;
 	mutex_p				table_mutex;
 	mutex_p				print_mutex;
-	mutex_p				status_mutex;
+//	mutex_p				status_mutex;
 	pthread_t			monitor;
 	t_philos			*philo;
 	t_philos			*head;
@@ -71,7 +72,7 @@ long int				get_real_time(void);
 int						valid_args(int argc, char **args);
 void					free_list(t_philos *philo);
 
-void					new_sleep(long time);
+int						new_sleep(long time);
 void					*monitor(void *arg);
 
 void					print_status(char *msg, long time_current,
@@ -81,7 +82,18 @@ void					set_status(int *status, int new_status,
 							mutex_p *status_mutex);
 
 t_philos				*set_philo(t_data *infos, mutex_p *table);
+void					set_fork(t_philos *philo, int new_status, int fork);
 
 t_philos				*next_philo(t_philos *philo, mutex_p *table);
+
+int						taken_left_fork(t_philos *philo);
+int						taken_right_fork(t_philos *philo);
+int						have_right_fork(t_philos *philo);
+int						have_left_fork(t_philos *philo);
+void					unlock_forks(t_philos *philo);
+
+int						philo_alive(t_philos *philo);
+void					wait_start_simulation(t_data *data);
+void					set_start(mutex_p *mutex, int *status, int new_status);
 
 #endif

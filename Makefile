@@ -1,5 +1,5 @@
 NAME = philo
-SRCS = utils.c check_args.c get_info_philos.c routine.c monitor.c
+SRCS = utils.c check_args.c get_info_philos.c routine.c monitor.c action_with_fork.c
 FLAGS = -Wall -Wextra -Werror
 SANITIZE = -fsanitize=thread
 
