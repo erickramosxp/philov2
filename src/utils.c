@@ -84,7 +84,6 @@ void	free_list(t_philos *philo)
 		free(temp);
 		temp = aux;
 	}
-//	printf("free no %d\n", philo->index);
 	free(philo);
 }
 

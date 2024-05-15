@@ -1,15 +1,5 @@
 #include "../includes/philo.h"
-/*
-void	set_fork(t_philos *philo, int new_status, int fork)
-{
-	pthread_mutex_lock(&philo->set_fork);
-	if (fork == 0)
-		philo->get_fork_left = new_status;
-	else if (fork == 1)
-		philo->get_fork_right = new_status;
-	pthread_mutex_unlock(&philo->set_fork);
-}
-*/
+
 int	philo_alive(t_philos *philo)
 {
 	pthread_mutex_lock(&philo->data->table_mutex);
@@ -56,7 +46,7 @@ int	philo_eat(t_philos *philo)
 		pthread_mutex_unlock(&philo->fork);
 		return (0);
 	}
-	print_status("is eating\n", (get_real_time() - philo->data->time_start)
+	print_status("\033[32mis eating\033[0m\n", (get_real_time() - philo->data->time_start)
 		/ 1000, philo->index, &(philo->data->print_mutex));
 	new_sleep(philo->data->time_eat);
 	new_time_eat(philo);
@@ -101,11 +91,10 @@ int	philo_think(t_philos *philo)
 
 void	*filosofo(void *arg)
 {
-	t_philos *philo;
+	t_philos	*philo;
 
 	philo = (t_philos *)arg;
-	
-	// wait_start_simulation(philo->data);
+
 	if (philo->index % 2 == 0)
 		usleep(200);
 	while (1)

@@ -2,7 +2,6 @@
 
 int	taken_left_fork(t_philos *philo)
 {
-//	set_fork(philo, 1, 0);
 	pthread_mutex_lock(&philo->previous->fork);
 	if (philo_alive(philo))
 	{
@@ -16,7 +15,6 @@ int	taken_left_fork(t_philos *philo)
 
 int	taken_right_fork(t_philos *philo)
 {
-//	set_fork(philo, 1, 1);
 	pthread_mutex_lock(&philo->fork);
 	if (philo_alive(philo))
 	{
@@ -27,31 +25,7 @@ int	taken_right_fork(t_philos *philo)
 	}
 	return (0);
 }
-/*
-int	have_right_fork(t_philos *philo)
-{
-	pthread_mutex_lock(&philo->set_fork);
-	if (philo->get_fork_right == 1)
-	{
-		pthread_mutex_unlock(&philo->set_fork);
-		return (1);
-	}
-	pthread_mutex_unlock(&philo->set_fork);
-	return (0);
-}
 
-int	have_left_fork(t_philos *philo)
-{
-	pthread_mutex_lock(&philo->set_fork);
-	if (philo->get_fork_left == 1)
-	{
-		pthread_mutex_unlock(&philo->set_fork);
-		return (1);
-	}
-	pthread_mutex_unlock(&philo->set_fork);
-	return (0);
-}
-*/
 void	unlock_forks(t_philos *philo)
 {
 	pthread_mutex_unlock(&philo->previous->fork);

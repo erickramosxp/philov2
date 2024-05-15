@@ -29,14 +29,10 @@ typedef struct s_philo
 	int					status;
 	pthread_t			philo;
 	mutex_p				fork;
-//	mutex_p				set_status;
 	mutex_p				meal_check;
 	mutex_p				dead_check;
-//	mutex_p				set_fork;
 	long int			last_time_eat;
 	int					i_eat;
-//	int					get_fork_right;
-//	int					get_fork_left;
 	struct s_philo		*previous;
 	struct s_philo		*next;
 	t_data				*data;
@@ -56,7 +52,6 @@ typedef struct s_data
 	long int			time_start;
 	mutex_p				table_mutex;
 	mutex_p				print_mutex;
-//	mutex_p				status_mutex;
 	pthread_t			monitor;
 	t_philos			*philo;
 	t_philos			*head;

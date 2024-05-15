@@ -12,23 +12,35 @@
 
 #include "./includes/philo.h"
 
-void	start_routine(t_data *data)
+void	*start_alone_diner(void *arg)
 {
-	int			nb_philos;
-	int			i;
 	t_philos	*philo;
 
-	philo = data->philo;
+	philo = (t_philos *)arg;
+	pthread_mutex_lock(&philo->fork);
+	print_status("has taken a fork\n", (get_real_time()
+			- philo->data->time_start) / 1000, philo->index,
+		&(philo->data->print_mutex));
+	usleep(philo->data->time_die);
+	pthread_mutex_unlock(&philo->fork);
+	return (NULL);
+}
+
+void	start_dinner(t_philos *philo)
+{
+	int	i;
+	int	nb_philos;
+
 	i = 0;
-	nb_philos = data->nb_philo;
+	nb_philos = philo->data->nb_philo;
 	while (i < nb_philos)
 	{
 		pthread_create(&philo->philo, NULL, &filosofo, philo);
 		philo = philo->next;
-		usleep(250);
+		usleep(450);
 		i++;
 	}
-	// set_start(&data->table_mutex, &data->start_simulation, 1);
+	pthread_create(&philo->data->monitor, NULL, &monitor, philo->data->philo);
 	i = 0;
 	while (i < nb_philos)
 	{
@@ -36,7 +48,21 @@ void	start_routine(t_data *data)
 		philo = philo->next;
 		i++;
 	}
-	pthread_join(data->monitor, NULL);
+	pthread_join(philo->data->monitor, NULL);
+}
+
+void	start_routine(t_data *data)
+{
+	t_philos	*philo;
+
+	philo = data->philo;
+	if (data->nb_philo == 1)
+	{
+		pthread_create(&philo->philo, NULL, &start_alone_diner, philo);
+		pthread_join(philo->philo, NULL);
+	}
+	else
+		start_dinner(philo);
 }
 
 int	main(int argc, char **argv)
@@ -46,7 +72,6 @@ int	main(int argc, char **argv)
 	if (!valid_args(argc - 1, argv + 1))
 		return (1);
 	init_infos(&data, argv, argc);
-	pthread_create(&data.monitor, NULL, &monitor, data.philo);
 	start_routine(&data);
 	free_list(data.philo);
 	return (0);

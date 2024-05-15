@@ -3,8 +3,8 @@
 
 void	disable_all_philos(t_philos *philos)
 {
-	int i;
-	t_philos *temp;
+	int			i;
+	t_philos	*temp;
 
 	i = 0;
 	temp = philos;
@@ -25,7 +25,7 @@ int	philo_dead(t_philos *philo)
 		pthread_mutex_unlock(&philo->dead_check);
 		disable_all_philos(philo);
 		set_status(&philo->data->end_dinner, 1, &philo->data->table_mutex);
-		print_status("died\n", (get_real_time() - philo->data->time_start)
+		print_status("\033[31mdied\033[0m\n", (get_real_time() - philo->data->time_start)
 			/ 1000, philo->index, &(philo->data->print_mutex));
 		return (1);
 	}
@@ -62,6 +62,7 @@ void	*monitor(void *arg)
 	philo = (t_philos *)arg;
 	while (1)
 	{
+
 		if (philo_dead(philo))
 			break ;
 		if (philo->data->flag_can_eat == 1)

@@ -38,14 +38,10 @@ void	index_philos(t_philos *philo, int qtd_philos)
 		philo->index = i;
 		philo->status = 1;
 		philo->i_eat = 0;
-//		philo->get_fork_left = 0;
-//		philo->get_fork_right = 0;
 		philo->last_time_eat = get_real_time();
 		pthread_mutex_init(&philo->fork, NULL);
-//		pthread_mutex_init(&philo->set_status, NULL);
 		pthread_mutex_init(&philo->meal_check, NULL);
 		pthread_mutex_init(&philo->dead_check, NULL);
-//		pthread_mutex_init(&philo->set_fork, NULL);
 		philo = philo->next;
 		i++;
 	}
@@ -91,6 +87,5 @@ void	init_infos(t_data *data, char **args, int argc)
 	index_philos(data->philo, data->nb_philo);
 	link_philos(data, data->philo);
 	pthread_mutex_init(&data->table_mutex, NULL);
-//	pthread_mutex_init(&data->status_mutex, NULL);
 	pthread_mutex_init(&data->print_mutex, NULL);
 }
