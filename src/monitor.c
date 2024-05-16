@@ -25,7 +25,8 @@ int	philo_dead(t_philos *philo)
 		pthread_mutex_unlock(&philo->dead_check);
 		disable_all_philos(philo);
 		set_status(&philo->data->end_dinner, 1, &philo->data->table_mutex);
-		print_status("\033[31mdied\033[0m\n", (get_real_time() - philo->data->time_start)
+		print_status("\033[31mdied\033[0m\n",
+			(get_real_time() - philo->data->time_start)
 			/ 1000, philo->index, &(philo->data->print_mutex));
 		return (1);
 	}

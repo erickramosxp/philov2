@@ -99,39 +99,4 @@ int		new_sleep(long time)
 	return (1);
 }
 
-void	print_status(char *msg, long time_current, int index_philo, mutex_p *print_mutex)
-{
-	pthread_mutex_lock(print_mutex);
-	printf("%ld %d %s", time_current, index_philo, msg);
-	pthread_mutex_unlock(print_mutex);
-}
 
-void	set_status(int *status, int new_status, mutex_p *status_mutex)
-{
-	pthread_mutex_lock(status_mutex);
-	*status = new_status;
-	pthread_mutex_unlock(status_mutex);
-}
-
-int	get_status_simulation(mutex_p *mutex, int *start)
-{
-	int result;
-
-	pthread_mutex_lock(mutex);
-	result = *start;
-	pthread_mutex_unlock(mutex);
-	return (result);
-}
-
-void	set_start(mutex_p *mutex, int *status, int new_status)
-{
-	pthread_mutex_lock(mutex);
-	*status = new_status;
-	pthread_mutex_unlock(mutex);
-}
-
-void	wait_start_simulation(t_data *data)
-{
-	while (get_status_simulation(&data->table_mutex, &data->start_simulation) == 0)
-		;
-}

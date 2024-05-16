@@ -19,7 +19,7 @@ typedef enum status
 	EAT,
 	SLEEP,
 	THINK
-}						status;
+}						t_status;
 
 typedef pthread_mutex_t	mutex_p;
 
@@ -76,19 +76,13 @@ void					print_status(char *msg, long time_current,
 void					set_status(int *status, int new_status,
 							mutex_p *status_mutex);
 
-t_philos				*set_philo(t_data *infos, mutex_p *table);
-void					set_fork(t_philos *philo, int new_status, int fork);
-
-t_philos				*next_philo(t_philos *philo, mutex_p *table);
-
 int						taken_left_fork(t_philos *philo);
 int						taken_right_fork(t_philos *philo);
-int						have_right_fork(t_philos *philo);
-int						have_left_fork(t_philos *philo);
 void					unlock_forks(t_philos *philo);
+int						philo_eat_all(t_philos *philo);
+void					add_another_meal(t_philos *philo);
 
 int						philo_alive(t_philos *philo);
-void					wait_start_simulation(t_data *data);
-void					set_start(mutex_p *mutex, int *status, int new_status);
+void					start_routine(t_data *data);
 
 #endif
