@@ -1,5 +1,16 @@
-#include "../includes/philo.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   monitor.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erramos <erramos@student.42.rio>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/16 12:37:23 by erramos           #+#    #+#             */
+/*   Updated: 2024/05/16 12:50:16 by erramos          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../includes/philo.h"
 
 void	disable_all_philos(t_philos *philos)
 {
@@ -63,7 +74,6 @@ void	*monitor(void *arg)
 	philo = (t_philos *)arg;
 	while (1)
 	{
-
 		if (philo_dead(philo))
 			break ;
 		if (philo->data->flag_can_eat == 1)

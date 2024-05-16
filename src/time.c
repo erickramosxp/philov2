@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erramos <erramos@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 23:53:16 by erramos           #+#    #+#             */
-/*   Updated: 2024/05/16 11:57:46 by erramos          ###   ########.fr       */
+/*   Created: 2024/05/16 13:00:56 by erramos           #+#    #+#             */
+/*   Updated: 2024/05/16 13:01:33 by erramos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/philo.h"
+#include "../includes/philo.h"
 
-int	main(int argc, char **argv)
+long int	get_real_time(void)
 {
-	t_data	data;
+	struct timeval	tv;
+	long int		time;
 
-	if (!valid_args(argc - 1, argv + 1))
-		return (1);
-	init_infos(&data, argv, argc);
-	start_routine(&data);
-	free_list(data.philo);
-	return (0);
+	gettimeofday(&tv, NULL);
+	time = (tv.tv_sec * 1000000) + tv.tv_usec;
+	return (time);
+}
+
+int	new_sleep(long time)
+{
+	long	new_time;
+
+	new_time = get_real_time() + time;
+	while (get_real_time() < new_time)
+	{
+		usleep(100);
+	}
+	return (1);
 }

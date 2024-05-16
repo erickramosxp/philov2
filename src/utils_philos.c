@@ -1,14 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_philos.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erramos <erramos@student.42.rio>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/16 12:38:00 by erramos           #+#    #+#             */
+/*   Updated: 2024/05/16 12:38:01 by erramos          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
 void	print_status(char *msg, long time_current, int index_philo,
-		mutex_p *print_mutex)
+		t_mutex *print_mutex)
 {
 	pthread_mutex_lock(print_mutex);
 	printf("%ld %d %s", time_current, index_philo, msg);
 	pthread_mutex_unlock(print_mutex);
 }
 
-void	set_status(int *status, int new_status, mutex_p *status_mutex)
+void	set_status(int *status, int new_status, t_mutex *status_mutex)
 {
 	pthread_mutex_lock(status_mutex);
 	*status = new_status;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routine.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erramos <erramos@student.42.rio>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/16 12:37:31 by erramos           #+#    #+#             */
+/*   Updated: 2024/05/16 12:40:08 by erramos          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
 void	new_time_eat(t_philos *philo)
@@ -51,12 +63,11 @@ int	philo_think(t_philos *philo)
 	return (1);
 }
 
-void	*filosofo(void *arg)
+void	*philos_routine(void *arg)
 {
 	t_philos	*philo;
 
 	philo = (t_philos *)arg;
-
 	if (philo->index % 2 == 0)
 		usleep(200);
 	while (1)

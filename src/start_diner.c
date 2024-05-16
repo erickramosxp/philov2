@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   start_diner.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erramos <erramos@student.42.rio>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/16 12:37:40 by erramos           #+#    #+#             */
+/*   Updated: 2024/05/16 12:37:42 by erramos          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
 void	*start_alone_diner(void *arg)
@@ -23,7 +35,7 @@ void	start_dinner(t_philos *philo)
 	nb_philos = philo->data->nb_philo;
 	while (i < nb_philos)
 	{
-		pthread_create(&philo->philo, NULL, &filosofo, philo);
+		pthread_create(&philo->philo, NULL, &philos_routine, philo);
 		philo = philo->next;
 		usleep(450);
 		i++;
